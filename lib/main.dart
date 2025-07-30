@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:student_entry_app/screen/login_screen.dart';
 import 'package:student_entry_app/screen/student_form.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:student_entry_app/screen/student_list.dart';
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: "/",
       routes: {
-        "/": (context) => StudentForm(),
+        "/": (context) => LoginScreen(),
         '/studentList': (context) => StudentList(),
       },
     );
