@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:student_entry_app/auth/auth_repository.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -16,7 +17,6 @@ class _LoginScreenState extends State<LoginScreen> {
       body: Column(
         children: [
           Padding(
-            
             padding: const EdgeInsets.all(8.0),
             child: TextField(
               controller: phoneController,
@@ -29,7 +29,15 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          ElevatedButton(onPressed: () {}, child: Text('Submit')),
+          ElevatedButton(
+            onPressed: () {
+              AuthRepository.phoneNumberVerification(
+                phoneNumber: phoneController.text.trim(),
+                context: context,
+              );
+            },
+            child: Text('Submit'),
+          ),
         ],
       ),
     );
