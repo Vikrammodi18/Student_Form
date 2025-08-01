@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:student_entry_app/useMethod.dart/essentialMethod.dart';
 import 'package:student_entry_app/utils/firebase_form_data.dart';
 
 class StudentForm extends StatefulWidget {
@@ -120,6 +121,13 @@ class _StudentFormState extends State<StudentForm> {
                   }
                 },
                 child: Text("Submit"),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  LocalStorage.removeToken(name: "token");
+                  setState(() {});
+                },
+                child: Text("logout"),
               ),
             ],
           ),

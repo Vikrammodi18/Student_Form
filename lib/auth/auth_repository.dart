@@ -53,6 +53,11 @@ class AuthRepository {
           .signInWithCredential(credential);
       if (userCredential.user != null) {
         showSnackBar(message: "logged in sucessfully", context: context);
+        String? token = await userCredential.user?.getIdToken();
+        if (token!.isNotEmpty) {
+          LocalStorage.saveToken(name: "token", data: token);
+        }
+
         Navigator.pushReplacementNamed(context, '/studentForm');
       }
     } on FirebaseAuthException catch (e) {
