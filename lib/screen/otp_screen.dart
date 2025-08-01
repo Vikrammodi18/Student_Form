@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pinput/pinput.dart';
 import 'package:student_entry_app/auth/auth_repository.dart';
+import 'package:student_entry_app/useMethod.dart/essentialMethod.dart';
 
 class OtpScreen extends StatefulWidget {
   final String verificationId;
@@ -30,19 +31,19 @@ class _OtpScreenState extends State<OtpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const focusedBorderColor = Color.fromRGBO(23, 171, 144, 1);
-    const fillColor = Color.fromRGBO(243, 246, 249, 0);
+    const focusedBorderColor = Color.fromRGBO(54, 118, 255, 1);
+    const fillColor = Color.fromRGBO(0, 0, 0, 0);
     const borderColor = Color.fromRGBO(23, 171, 144, 0.4);
     final defaultPinTheme = PinTheme(
       width: 45,
       height: 45,
       textStyle: const TextStyle(
         fontSize: 22,
-        color: Color.fromRGBO(30, 60, 87, 1),
+        color: Color.fromRGBO(0, 0, 0, 1),
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(19),
-        border: Border.all(color: borderColor),
+        border: Border.all(color: const Color.fromARGB(102, 92, 79, 239)),
       ),
     );
     return Scaffold(
@@ -55,6 +56,7 @@ class _OtpScreenState extends State<OtpScreen> {
       ),
       body: Column(
         children: [
+          Image.asset("assets/images/otp.jpg"),
           Form(
             key: formKey,
             child: Column(
@@ -71,7 +73,13 @@ class _OtpScreenState extends State<OtpScreen> {
                     focusNode: focusNode,
                     defaultPinTheme: defaultPinTheme,
                     separatorBuilder: (index) => const SizedBox(width: 8),
-                    validator: (value) {},
+                    validator: (value) {
+                      if (value == null ||
+                          value.isEmpty ||
+                          value.trim() == "") {
+                        return "Enter otp";
+                      }
+                    },
                     hapticFeedbackType: HapticFeedbackType.lightImpact,
                     onCompleted: (pin) {
                       debugPrint('onCompleted: $pin');
@@ -118,7 +126,21 @@ class _OtpScreenState extends State<OtpScreen> {
                       context: context,
                     );
                   },
-                  child: const Text('Verify'),
+                  child: Container(
+                    height: 50,
+                    width: 120,
+
+                    decoration: BoxDecoration(
+                      color: Colors.deepPurple,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: Center(
+                      child: const Text(
+                        'Verify',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ),
               ],
             ),
