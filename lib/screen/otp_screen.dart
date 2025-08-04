@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:pinput/pinput.dart';
 import 'package:student_entry_app/auth/auth_repository.dart';
 import 'package:student_entry_app/useMethod.dart/essentialMethod.dart';
 
-class OtpScreen extends StatefulWidget {
+class OtpScreen extends ConsumerStatefulWidget {
   final String verificationId;
   const OtpScreen({super.key, required this.verificationId});
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  ConsumerState<OtpScreen> createState() => _OtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class _OtpScreenState extends ConsumerState<OtpScreen> {
   late final SmsRetriever smsRetriever;
   late final TextEditingController pinController;
   late final FocusNode focusNode;
@@ -123,7 +124,8 @@ class _OtpScreenState extends State<OtpScreen> {
                     AuthRepository.verifyOtp(
                       sms: pinController.text.trim(),
                       verificationId: widget.verificationId,
-                      context: context,
+                      context: context, ref: ref,
+                      
                     );
                   },
                   child: Container(

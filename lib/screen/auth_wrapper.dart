@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:student_entry_app/controller/provider.dart';
 import 'package:student_entry_app/screen/login_screen.dart';
-import 'package:student_entry_app/screen/student_form.dart';
+import 'package:student_entry_app/features/student/student_form.dart';
 
 class AuthWrapper extends ConsumerWidget {
   const AuthWrapper({super.key});

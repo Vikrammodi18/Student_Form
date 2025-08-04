@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:student_entry_app/core/providers/auth_provider.dart';
 import 'package:student_entry_app/useMethod.dart/essentialMethod.dart';
 import 'package:student_entry_app/utils/firebase_form_data.dart';
 
-class StudentForm extends StatefulWidget {
+class StudentForm extends ConsumerStatefulWidget {
   const StudentForm({super.key});
 
   @override
-  State<StudentForm> createState() => _StudentFormState();
+  ConsumerState<StudentForm> createState() => _StudentFormState();
 }
 
-class _StudentFormState extends State<StudentForm> {
+class _StudentFormState extends ConsumerState<StudentForm> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _mobileController = TextEditingController();
@@ -21,14 +23,6 @@ class _StudentFormState extends State<StudentForm> {
       appBar: AppBar(
         title: Text("Student entry"),
         backgroundColor: Colors.deepPurple,
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.pushNamed(context, '/studentList');
-            },
-            icon: Icon(Icons.list),
-          ),
-        ],
       ),
 
       body: Padding(
@@ -124,8 +118,11 @@ class _StudentFormState extends State<StudentForm> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  LocalStorage.removeToken(name: "token");
-                  setState(() {});
+                  try {
+                    ref.read(authProvider.notifier).logout();
+                  } catch (e) {
+                    print("error while logout $e");
+                  }
                 },
                 child: Text("logout"),
               ),

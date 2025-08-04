@@ -1,5 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:student_entry_app/core/providers/auth_provider.dart';
 import 'package:student_entry_app/screen/otp_screen.dart';
 import 'package:student_entry_app/useMethod.dart/essentialMethod.dart';
 
@@ -39,10 +41,11 @@ class AuthRepository {
     );
   }
 
-  static verifyOtp({
+  static Future verifyOtp({
     required String sms,
     required String verificationId,
     required BuildContext context,
+    required WidgetRef ref,
   }) async {
     try {
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -56,9 +59,8 @@ class AuthRepository {
         String? token = await userCredential.user?.getIdToken();
         if (token!.isNotEmpty) {
           LocalStorage.saveToken(name: "token", data: token);
+          ref.read(authProvider.notifier).login();
         }
-
-        Navigator.pushReplacementNamed(context, '/studentForm');
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == "invalid-verification-code") {

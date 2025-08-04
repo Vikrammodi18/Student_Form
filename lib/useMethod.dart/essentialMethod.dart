@@ -19,11 +19,23 @@ class LocalStorage {
     return _prefs.getString(name);
   }
 
- static Future<void> removeToken({required String name})async{
-  await _prefs.remove(name);
- }
- 
+  static Future<void> removeToken({required String name}) async {
+    await _prefs.remove(name);
+  }
+
+  static Future<void> setLogin(bool value) async {
+    await _prefs.setBool("isLoggedIn", value);
+  }
+
+  static bool getLogin() {
+    return _prefs.getBool("isLoggedIn") ?? false;
+  }
+
+  static Future<void> clearLogin() async {
+    await _prefs.remove("isLoggedIn");
+  }
 }
+
 void showSnackBar({required String message, required BuildContext context}) {
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(backgroundColor: Colors.deepPurple, content: Text(message)),
