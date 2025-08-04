@@ -12,7 +12,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
     initialLocation: '/home',
     redirect: (context, state) {
       final loggedIn = authState.isLoggedIn;
-     
+
       final loggingIn = state.fullPath == '/login';
 
       if (!loggedIn && !loggingIn) return '/login';
@@ -20,10 +20,26 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       return null;
     },
     routes: [
-      GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
-      GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
-      GoRoute(path: '/studentForm', builder: (context, state) => StudentForm()),
-      GoRoute(path: "/studentList", builder: (context, state) => StudentList()),
+      GoRoute(
+        name: "login",
+        path: '/login',
+        builder: (context, state) => LoginScreen(),
+      ),
+      GoRoute(
+        name: "home",
+        path: '/home',
+        builder: (context, state) => HomeScreen(),
+      ),
+      GoRoute(
+        name: "studentForm",
+        path: '/studentForm',
+        builder: (context, state) => StudentForm(),
+      ),
+      GoRoute(
+        name: "studentList",
+        path: "/studentList",
+        builder: (context, state) => StudentList(),
+      ),
     ],
   );
 });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:get/get.dart';
 import 'package:student_entry_app/controller/provider.dart';
 
 class StudentList extends ConsumerStatefulWidget {
@@ -20,10 +21,44 @@ class _StudentListState extends ConsumerState<StudentList> {
           return ListView.builder(
             itemCount: data.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                title: Text(data[index].name),
-                subtitle: Text("Mobile:${data[index].mobile}"),
-                trailing: Text("Age: ${data[index].age}"),
+              return Card(
+                child: ListTile(
+                  title: Text("${data[index].name}"),
+                  subtitle: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Mobile: ${data[index].mobile}"),
+                      Text("Age ${data[index].age}"),
+                    ],
+                  ),
+                  trailing: InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        // shape: RoundedRectangleBorder(
+                        //   borderRadius: BorderRadius.vertical(
+                        //     top: Radius.circular(20),
+                        //   ),
+                        // ),
+                        builder: (BuildContext context) {
+                          return SizedBox(
+                            height: 400,
+                            child: Center(
+                              child: ElevatedButton(
+                                onPressed: () {
+                                  navigator?.pop(context);
+                                },
+                                child: Text("submit"),
+                              ),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Icon(Icons.edit_note_rounded),
+                  ),
+                ),
               );
             },
           );
