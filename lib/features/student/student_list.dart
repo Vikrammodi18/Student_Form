@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:get/get.dart';
+
 import 'package:student_entry_app/controller/provider.dart';
+import 'package:student_entry_app/features/student/widget/editStudentBottomSheet.dart';
 
 class StudentList extends ConsumerStatefulWidget {
   const StudentList({super.key});
@@ -42,17 +43,7 @@ class _StudentListState extends ConsumerState<StudentList> {
                         //   ),
                         // ),
                         builder: (BuildContext context) {
-                          return SizedBox(
-                            height: 400,
-                            child: Center(
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  navigator?.pop(context);
-                                },
-                                child: Text("submit"),
-                              ),
-                            ),
-                          );
+                          return Editstudentbottomsheet(student: data[index]);
                         },
                       );
                     },
@@ -64,7 +55,7 @@ class _StudentListState extends ConsumerState<StudentList> {
           );
         },
         error: (error, stackTrace) => Center(child: Text(error.toString())),
-        loading: () => CircularProgressIndicator(),
+        loading: () => Center(child: CircularProgressIndicator(),),
       ),
     );
   }

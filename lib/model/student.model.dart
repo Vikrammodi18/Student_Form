@@ -1,6 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class StudentModel {
@@ -8,11 +7,13 @@ class StudentModel {
 }
 
 class Student {
+  final String id;
   final String name;
   final int mobile;
   final int age;
   final Timestamp timestamp;
   Student({
+    required this.id,
     required this.name,
     required this.mobile,
     required this.age,
@@ -46,6 +47,7 @@ class Student {
     final data = doc.data() as Map<String, dynamic>;
 
     return Student(
+      id: doc.id,
       name: data['name'] as String,
       mobile: int.tryParse(data['mobile'].toString()) ?? 0,
       age: int.tryParse(data['age'].toString()) ?? 0,
