@@ -64,7 +64,7 @@ class _StudentFormState extends ConsumerState<StudentForm> {
                   validator: (val) {
                     if (val == null || val.isEmpty || val.trim() == "") {
                       return "Mobile NUmber can't be empty";
-                    } else if (val.length < 10) {
+                    } else if (val.length < 10 || val.length > 10) {
                       return "Mobile number must be 10 digit";
                     } else {
                       return null;

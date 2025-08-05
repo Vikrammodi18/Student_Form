@@ -80,7 +80,7 @@ class _EditstudentbottomsheetState
                   validator: (val) {
                     if (val == null || val.isEmpty || val.trim() == "") {
                       return "Mobile NUmber can't be empty";
-                    } else if (val.length < 10) {
+                    } else if (val.length < 10 || val.length > 10) {
                       return "Mobile number must be 10 digit";
                     } else {
                       return null;
@@ -104,7 +104,7 @@ class _EditstudentbottomsheetState
                     final age = int.tryParse(val);
                     if (age == null) {
                       return "age cannot be empty";
-                    } else if (age < 18 && age > 100) {
+                    } else if (age < 18 || age > 100) {
                       return "age must be under 100 and above 18";
                     } else {
                       return null;
@@ -126,7 +126,6 @@ class _EditstudentbottomsheetState
                         mobile: mobile!,
                       );
 
-                      print("Data saved to Firebase ✅");
                       _nameController.clear();
                       _mobileController.clear();
                       _ageController.clear();
@@ -138,8 +137,9 @@ class _EditstudentbottomsheetState
                         context: context,
                       );
                     } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text("Validation failed")),
+                      showSnackBar(
+                        message: "validation failed",
+                        context: context,
                       );
                     }
                   },
