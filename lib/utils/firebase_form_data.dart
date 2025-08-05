@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:student_entry_app/useMethod.dart/essentialMethod.dart';
 
 class FirebaseFormData {
   static Future<void> FirebaseFormSubmit({
@@ -25,5 +27,15 @@ class FirebaseFormData {
       "mobile": mobile,
       "age": age,
     });
+  }
+
+  static Future<void> deleteData({required String sId, required BuildContext context}) async {
+try{
+
+    await FirebaseFirestore.instance.collection('students').doc(sId).delete();
+}catch(e){
+  showSnackBar(message: 'error $e', context: context);
+}
+
   }
 }

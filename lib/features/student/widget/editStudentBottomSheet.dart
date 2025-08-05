@@ -112,38 +112,55 @@ class _EditstudentbottomsheetState
                   },
                 ),
                 SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState?.validate() ?? false) {
-                      // Save to Firestore
-                      final name = _nameController.text.trim();
-                      final mobile = int.tryParse(_mobileController.text);
-                      final age = int.tryParse(_ageController.text.trim());
-                      await FirebaseFormData.updateData(
-                        sId: widget.student.id,
-                        name: name,
-                        age: age!,
-                        mobile: mobile!,
-                      );
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState?.validate() ?? false) {
+                          // Save to Firestore
+                          final name = _nameController.text.trim();
+                          final mobile = int.tryParse(_mobileController.text);
+                          final age = int.tryParse(_ageController.text.trim());
+                          await FirebaseFormData.updateData(
+                            sId: widget.student.id,
+                            name: name,
+                            age: age!,
+                            mobile: mobile!,
+                          );
 
-                      _nameController.clear();
-                      _mobileController.clear();
-                      _ageController.clear();
-                      // ignore: unused_result
-                      ref.refresh(studentProvider);
-                      context.pop();
-                      showSnackBar(
-                        message: "update successfully",
-                        context: context,
-                      );
-                    } else {
-                      showSnackBar(
-                        message: "validation failed",
-                        context: context,
-                      );
-                    }
-                  },
-                  child: Text("Submit"),
+                          _nameController.clear();
+                          _mobileController.clear();
+                          _ageController.clear();
+                          // ignore: unused_result
+                          ref.refresh(studentProvider);
+                          context.pop();
+                          showSnackBar(
+                            message: "update successfully",
+                            context: context,
+                          );
+                        } else {
+                          showSnackBar(
+                            message: "validation failed",
+                            context: context,
+                          );
+                        }
+                      },
+                      child: Text("Submit"),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {
+                        FirebaseFormData.deleteData(
+                          sId: widget.student.id,
+                          context: context,
+                        );
+                        // ignore: unused_result
+                        ref.refresh(studentProvider);
+                        context.pop();
+                      },
+                      child: Text("Delete"),
+                    ),
+                  ],
                 ),
               ],
             ),
